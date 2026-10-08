@@ -1,5 +1,5 @@
 import argparse
-import re 
+import re
 import numpy as np
 from rank_bm25 import BM25Okapi
 
@@ -9,7 +9,7 @@ from common import read_jsonl, write_run
 TOKEN_RE=re.compile(r"[a-z0-9]+")
 
 def article_text(p):
-    return f"{p['title']}.{p['product']}.{p['text']}"
+    return f"{p['title']}. {p['product']}. {p['text']}"
 
 def tokenize(text):
     return TOKEN_RE.findall(text.lower())
@@ -21,6 +21,7 @@ def bm25_scores(corpus,query_texts):
 def dense_scores(corpus,query_texts,model_name,model=None):
     if model is None:
         from sentence_transformers import SentenceTransformer
+        model=SentenceTransformer(model_name,device="cpu")
     P=model.encode([article_text(p) for p in corpus],normalize_embeddings=True)
     Q=model.encode(query_texts, normalize_embeddings=True)
     return Q @ P.T
@@ -54,7 +55,7 @@ def main():
 
     corpus=read_jsonl(args.corpus)
     queries=read_jsonl(args.queries)
-    ranked=rank(corpus,[q["query"]for q in queries],args.models,args.hybrid)
+    ranked=rank(corpus,[q["query"]for q in queries],args.model,args.hybrid)
     write_run(args.out,queries,ranked)
     print(f"wrote {len(queries)} rankings to {args.out}")
 

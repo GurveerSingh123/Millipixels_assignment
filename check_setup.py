@@ -1,5 +1,4 @@
 """PROVIDED: run this once after `pip install -r requirements.txt`.
-
 It checks your Python and packages, downloads the base model (about 90 MB, first run only), runs a
 2-step training job, and estimates how long a full fine-tuning run will take on YOUR machine.
 
