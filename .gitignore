@@ -1,0 +1,16 @@
+# environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# model weights and training checkpoints - do NOT commit these (train.py must recreate them)
+models/
+checkpoints/
+*.safetensors
+*.bin
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

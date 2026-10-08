@@ -1,0 +1,6 @@
+# Python 3.9+ . CPU-only is fine; no GPU needed.
+sentence-transformers>=3.0
+datasets>=2.19
+accelerate>=0.26
+rank-bm25>=0.2.2
+numpy
